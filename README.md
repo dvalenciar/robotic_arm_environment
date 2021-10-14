@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-Robot Arm Simulation in ROS2 and Gazebo
+Robotic Arm Simulation in ROS2 and Gazebo
   <br>
 </h1>
 
