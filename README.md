@@ -39,4 +39,6 @@ Please feel free to contact me or open an issue if you have questions or need ad
 ## Acknowledgement
 I want to thank Doosan Robotics for their tutorials, repositories, and packages where they took some ideas and part of this code.
 
-https://github.com/doosan-robotics/doosan-robot2
+* https://github.com/doosan-robotics/doosan-robot2
+* https://github.com/doosan-robotics/doosan-robot
+* https://www.doosanrobotics.com/en/Index
