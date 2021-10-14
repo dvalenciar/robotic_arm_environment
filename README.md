@@ -10,7 +10,7 @@ This repository aims: first, to simulate a robotic arm **from scratch** using GA
 
 In the followings links, you can find a step-by-step instruction section for simulating, controlling, and running this repository with the robotic arm:
 
-* **Simulation in Gazebo and Ros2**
+* **Simulation in Gazebo and ROS2** --> link [GitHub](http://github.com)
   - how to spawn the robot
   - controler
    
