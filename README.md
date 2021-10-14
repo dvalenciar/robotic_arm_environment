@@ -8,7 +8,17 @@ Robot Arm Simulation in ROS2 and Gazebo
 
 This repository aims: first, to simulate a robotic arm **from scratch** using GAZEBO and **ROS-2**. Second, it creates a custom Reinforcement Learning Environment for testing RL algorithms with a 6DoF Robotic Arm.  Finally, we test the simulation and environment with a reacher target task, using RL and a 6DoF Robotic Arm
 
-In this link, BLOG, you can find a step-by-step instruction section for simulating, controlling, and running this repository with the robot arm.
+In the followings links, you can find a step-by-step instruction section for simulating, controlling, and running this repository with the robotic arm:
+
+* **Simulation in Gazebo and Ros2**
+  - how to spawn the robot
+  - controler
+   
+* **Custom RL Environment**
+  - how create the rl envoronment 
+
+* **Reacher task with RL**
+  - Reacher task
 
 ## Prerequisites
 
