@@ -25,8 +25,6 @@ In the followings links, you can find a step-by-step instruction section for sim
 |Library         | Version (TESTED) |
 |----------------------|----|
 
-## How to run the code
-
 
 ## Citation
 If you use either the code, data or the step from the tutorial-blog in your paper or project, please kindly star this repo and cite our webpage
