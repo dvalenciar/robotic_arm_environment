@@ -24,15 +24,14 @@ This repository aims: first, to simulate a 6DoF Robotic Arm **from scratch** usi
 In the followings links, you can find a step-by-step instruction section for simulating, controlling, and running this repository with the robotic arm:
 
 * **Simulation in Gazebo and ROS2** --> [Tutorial-link](https://davidvalenciaredro.wixsite.com/my-site/services-7)
-  - how to spawn the robot
-  - controler
+  - how to configurate and spawn the robot in Gazebo 
+  - add a position controller
    
-* **Custom RL Environment**
-  - how create the rl envoronment 
+* **Custom RL Environment** --> [Tutorial-link]
+  - how create the RL environment 
 
-* **Reacher task with RL**
-  - Reacher task
-
+* **Reacher task with RL** --> Cooming soon
+  - Robot reacher task
 
 
 
