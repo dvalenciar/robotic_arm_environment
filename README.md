@@ -25,7 +25,7 @@ This repository includes: First, how to simulate a 6DoF Robotic Arm **from scrat
 
 ## How to run this Repository 
 
-In the followings links, you can find a step-by-step instruction section for simulating, controlling, and running this repository with the robotic arm:
+In the following links you can find a step-by-step instruction section to run this repository and simulate the robotic arm:
 
 * **Simulation in Gazebo and ROS2** --> [Tutorial-link](https://davidvalenciaredro.wixsite.com/my-site/services-7)
   - Configurate and spawn the robotic arm in Gazebo 
@@ -44,11 +44,17 @@ If you use either the code, data or the step from the tutorial-blog in your pape
 
 
 ## Acknowledgement
-I want to thank Doosan Robotics for their tutorials, repositories, and packages where they took some ideas and part of this code.
+I want to thank Doosan Robotics for their repositories, and packages where they took part of this code.
 
 * https://github.com/doosan-robotics/doosan-robot2
 * https://github.com/doosan-robotics/doosan-robot
 * https://www.doosanrobotics.com/en/Index
+
+Also, thanks to the authors of these repositories and their tutorials where I took some ideas  
+
+* https://github.com/noshluk2/ROS2-Ultimate-learners-Repository/tree/main/bazu
+* https://github.com/TomasMerva/ROS_KUKA_env
+
 
 ## Contact
 Please feel free to contact me or open an issue if you have questions or need additional explanations.
