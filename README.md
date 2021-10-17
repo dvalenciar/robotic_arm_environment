@@ -12,7 +12,7 @@ This repository includes: First, how to simulate a 6DoF Robotic Arm **from scrat
 ![](https://github.com/dvalenciar/robotic_arm_environment/blob/main/images/doosan.gif)
 
 <p align="center">
-  < src="https://github.com/dvalenciar/robotic_arm_environment/blob/main/images/doosan.gif">
+  <img src="https://github.com/dvalenciar/robotic_arm_environment/blob/main/images/doosan.gif">
 </p>
 
 
