@@ -20,7 +20,6 @@ This repository includes: First, how to simulate a 6DoF Robotic Arm **from scrat
 |----------------------|----|
 | Ubuntu | 20.04|
 | ROS2| Foxy|
-| Python | 3.8|
 | ros2_control |[link](https://github.com/ros-controls/ros2_control/tree/foxy) |
 | gazebo_ros2_control | [link](https://github.com/ros-simulation/gazebo_ros2_control)|
 
@@ -29,8 +28,8 @@ This repository includes: First, how to simulate a 6DoF Robotic Arm **from scrat
 In the followings links, you can find a step-by-step instruction section for simulating, controlling, and running this repository with the robotic arm:
 
 * **Simulation in Gazebo and ROS2** --> [Tutorial-link](https://davidvalenciaredro.wixsite.com/my-site/services-7)
-  - how to configurate and spawn the robot in Gazebo 
-  - add a position controller
+  - Configurate and spawn the robotic arm in Gazebo 
+  - Move the robot with a simple position controller
    
 * **Custom RL Environment** --> [Tutorial-link]
   - how create the RL environment 
