@@ -31,8 +31,8 @@ In the following links you can find a step-by-step instruction section to run th
   - Configurate and spawn the robotic arm in Gazebo 
   - Move the robot with a simple position controller
    
-* **Custom RL Environment** --> [Tutorial-link]
-  - how create the RL environment 
+* **Custom RL Environment** --> [Tutorial-link](https://davidvalenciaredro.wixsite.com/my-site/services-7-1)
+  - A complete Reinforcement Learning environment simulation 
 
 * **Reacher task with RL** --> Cooming soon
   - Robot reacher task
