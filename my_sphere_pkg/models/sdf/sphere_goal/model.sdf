@@ -1,0 +1,61 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+
+  <model name='sphere_goal'>
+
+    <link name='base_link'>
+      
+      <inertial>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.1</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.1</iyy>
+          <iyz>0</iyz>
+          <izz>0.1</izz>
+        </inertia>
+        <pose>0 0 0 0 -0 0</pose>
+      </inertial>
+
+      <pose>0 0 0 0 -0 0</pose>
+      
+      <self_collide>0</self_collide>
+      <enable_wind>0</enable_wind>
+      <kinematic>0</kinematic>
+      <gravity>0</gravity>
+      
+
+      <visual name='visual'>  
+        <pose>0 0 0 0 -0 0</pose>
+        
+        <geometry>  
+          <sphere>
+            <radius>0.045</radius>
+          </sphere>
+        </geometry>
+
+        <material>
+          <lighting>1</lighting>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Green</name>
+          </script>
+          <shader type='vertex'>
+            <normal_map>__default__</normal_map>
+          </shader>
+          <ambient>0 1 0 1</ambient>
+          <diffuse>0 1 0 1</diffuse>
+          <specular>0 1 0 1</specular>
+          <emissive>0 1 0 1</emissive>
+        </material>
+
+        <transparency>0</transparency>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      
+    </link>
+    <static>0</static>
+    <allow_auto_disable>1</allow_auto_disable>
+  </model>
+</sdf>
