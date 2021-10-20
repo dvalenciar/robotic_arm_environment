@@ -28,11 +28,11 @@ This repository includes: First, how to simulate a 6DoF Robotic Arm **from scrat
 In the following links you can find a step-by-step instruction section to run this repository and simulate the robotic arm:
 
 * **Simulation in Gazebo and ROS2** --> [Tutorial-link](https://davidvalenciaredro.wixsite.com/my-site/services-7)
-  - Configurate and spawn the robotic arm in Gazebo 
-  - Move the robot with a simple position controller
+  - Configurate and spawn the robotic arm in Gazebo. 
+  - Move the robot with a simple position controller.
    
 * **Custom RL Environment** --> [Tutorial-link](https://davidvalenciaredro.wixsite.com/my-site/services-7-1)
-  - A complete Reinforcement Learning environment simulation 
+  - A complete Reinforcement Learning environment simulation. 
 
 * **Reacher task with RL** --> Cooming soon
   - Robot reacher task.
