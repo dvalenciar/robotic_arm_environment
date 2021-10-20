@@ -7,8 +7,8 @@ Describer:  Simple launch to SIMULATE the doosan robot in GAZEBO in my own packa
             This scripts just spawns the robot arm in GAZEBO
             the robot description (urdf and xacro) are in: src/my_doosan_pkg/description/xacro
 
-            Robot model m1013 color white
-            Robot model a0912 color blue
+            Robot model m1013 color white.
+            Robot model a0912 color blue.
 """
 
 import os
