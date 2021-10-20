@@ -35,7 +35,7 @@ In the following links you can find a step-by-step instruction section to run th
   - A complete Reinforcement Learning environment simulation 
 
 * **Reacher task with RL** --> Cooming soon
-  - Robot reacher task
+  - Robot reacher task.
 
 
 

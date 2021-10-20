@@ -33,7 +33,7 @@ def generate_launch_description():
 	#robot_model = 'm1013'
 
 	xacro_file = get_package_share_directory('my_doosan_pkg') + '/description'+'/xacro/'+ robot_model +'.urdf.xacro'
-
+	print (xacro_file)
 	
 	# Robot State Publisher 
 	robot_state_publisher = Node(package    ='robot_state_publisher',
