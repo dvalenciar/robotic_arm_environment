@@ -19,7 +19,7 @@ This repository includes: First, how to simulate a 6DoF Robotic Arm **from scrat
 |Library         | Version (TESTED) |
 |----------------------|----|
 | Ubuntu | 20.04|
-| ROS2| Foxy|
+| ROS2| Foxy [link](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)|
 | ros2_control |[link](https://github.com/ros-controls/ros2_control/tree/foxy) |
 | gazebo_ros2_control | [link](https://github.com/ros-simulation/gazebo_ros2_control/tree/foxy)|
 
