@@ -3,7 +3,7 @@
 	<xacro:macro name="config_ctr_gazebo">
 
 		<!-- I need this for ROS2 control -->
-		<!-- I create this file, it was not avaliable in the orginal doosan repo -->
+		<!-- I create this file, it was NOT available in the original Doosan repo -->
 
 		<ros2_control name="GazeboSystem" type="system">
 			<hardware>
@@ -75,12 +75,9 @@
 
 		<gazebo>
 			<plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
-        		
-        		<!--<robot_sim_type>gazebo_ros2_control/DefaultRobotHWSim</robot_sim_type> --> 
-				
+        		<!--<robot_sim_type>gazebo_ros2_control/DefaultRobotHWSim</robot_sim_type> -->
 				<robot_sim_type>gazebo_ros2_control/GazeboSystem</robot_sim_type>
-				<parameters>$(find my_doosan_pkg)/config/simple_controller.yaml</parameters>   
-
+				<parameters>$(find my_doosan_pkg)/config/simple_controller.yaml</parameters>
 		    </plugin>
 		</gazebo>
 

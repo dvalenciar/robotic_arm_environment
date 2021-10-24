@@ -4,7 +4,7 @@
 	<xacro:macro name="dsr_config_coeff">
 
     <!-- I need this for a better simulation in Gazebo-->
-    <!-- I modificated this file a bit, it was  avaliable in the orginal doosan repo as macro.gazebo.xacro -->
+    <!-- I modified this file a bit, it was available in the original Doosan repo as macro.gazebo.xacro -->
     <!-- This include the Contact Coefficients and other parameters, still no sure if this is correct --> 
     <!-- More info here http://gazebosim.org/tutorials?tut=ros_urdf -->
 

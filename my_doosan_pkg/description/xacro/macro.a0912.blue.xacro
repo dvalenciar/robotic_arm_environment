@@ -4,12 +4,13 @@
 
 	<!-- I did some modifications concerning the original file-->
 	<!-- The  damping and friction where added in each joint-->
-	<!-- The created addded, and called the gazebo_config_control.xacro -->
-	
-	
+	<!-- The created added, and called the gazebo_config_control.xacro -->
+	<!-- The created added, and called the bumper_config.xacro -->
+
 	<xacro:include filename="$(find my_doosan_pkg)/description/xacro/macro.gazebo_config_control.xacro" />
 	<xacro:include filename="$(find my_doosan_pkg)/description/xacro/macro.transmission.xacro" />
 	<xacro:include filename="$(find my_doosan_pkg)/description/xacro/macro.internal_config.xacro" />
+	<xacro:include filename="$(find my_doosan_pkg)/description/xacro/macro.bumper_config.xacro" />
 
 
 	<xacro:macro name="a0912" params="namespace">
@@ -279,11 +280,12 @@
 		</link>
 
 
-		<!-- the following lines instantiates all the info described in the file macro.gazebo_config_control.xacro, transmissions and internal_config by david-->
+		<!-- the following lines instantiates all the info described in the files:
+		 macro.gazebo_config_control.xacro, transmissions,  internal_config, macro.bumper_config  by david-->
 		<xacro:config_ctr_gazebo /> 
 		<xacro:dsr_transmission />
-		<xacro:dsr_config_coeff /> 
-
+		<xacro:dsr_config_coeff />
+		<xacro:bumper_ctr_sensor />
 
 	</xacro:macro>
 </robot>

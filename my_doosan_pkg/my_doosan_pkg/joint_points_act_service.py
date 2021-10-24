@@ -38,7 +38,7 @@ class TrajectoryActionClient(Node):
 		point1_msg.time_from_start = Duration(seconds=2.0).to_msg()
 
 		point2_msg = JointTrajectoryPoint()
-		point2_msg.positions=[0.1, 0.0, 1.5, 1.50, 1.0, 0.4] 
+		point2_msg.positions=[0.0, 0.95, 1.5, 0.0, 0.78, 0.0] 
 		point2_msg.time_from_start = Duration(seconds=4, nanoseconds=0).to_msg()
 
 

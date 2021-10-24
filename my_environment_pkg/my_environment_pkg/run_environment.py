@@ -25,28 +25,30 @@ def main(args=None):
 	run_env_node = MyEnvironmentNode()
 	rclpy.spin_once(run_env_node)
 
-
 	num_episodes = 3
 	episonde_horizont = 5
-
 
 	for episode in range (num_episodes):		
 		for step in range (episonde_horizont):
 			print (f'----------------Episode:{episode+1} Step:{step+1}--------------------')
 
 			action = run_env_node.action_generator_sample() # generate a sample action vector
-			run_env_node.action_step_service(action) # take the action
-			
+			run_env_node.action_step_service(action) # take the action		
 			reward, done  = run_env_node.reward_calculator()
 			state  = run_env_node.state_space()
 
-			if done: 
+			if done == True: 
 				# if done is TRUE means the end-effector reach to goal and environmet will reset
 				print (f'Goal Reach, Episode ends after {step+1} steps')
 				break
 			
+			elif done == 'Collision':
+				#if done is collision means the end-effector touch the ground and environmet will reset
+				print (f' !Collision! End-Effector touched the ground, Episode ends after {step+1} steps')
+				break
+
 			time.sleep(1.0)
-		
+			
 		print (f'Episode {episode+1} Ended')
 		
 		run_env_node.reset_environment_request()					
@@ -56,7 +58,7 @@ def main(args=None):
 	print ("Total num of episode completed, Exiting ....")
 	#run_env_node.destroy_node()
 	rclpy.shutdown()
-
+	
 
 if __name__ == '__main__':
 	main()
