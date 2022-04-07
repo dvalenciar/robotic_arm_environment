@@ -18,9 +18,18 @@ Describer:
 
 			1) Return the state space
 			2) Return the reward (distance between target and end-effector)
-			3) Generate random action
+			3) Generate and return random action
 			4) Reset the environment (robot to home position and target to new position)
-			5) Can move the robot based on the action
+			5) A collition topic is preseted here in case the robot crash with floor
+
+		update 5/04/2022 
+
+		maybe there is a mistake in action_step_service  seems that i need to be very carefull with the duration time
+		additionally call the on_timer_transformation function is not optimall, so i may be other way
+		
+		update 5/04/2022:
+		
+		Please see/use main_rl_environment.py instead of this script
 """
 
 import time
@@ -305,7 +314,7 @@ class MyEnvironmentNode(Node):
 			return distance
 
 	def reward_calculator(self):
-		# We aim with this function to get the reward value. Convert the distance in reward
+		# I aim with this function to get the reward value. Convert the distance in reward
 		
 		distance = self.distance_calculator()
 
