@@ -17,6 +17,7 @@ Describer:
             - Reward --> *r = -(theta<sup>2</sup> + 0.1 * theta_dt<sup>2</sup> + 0.001 * torque<sup>2</sup>)*
             - The episode terminates at 200 time steps.
 """
+
 import sys
 import gym
 import random
@@ -72,7 +73,7 @@ class Actor(nn.Module):
 class OUNoise(object):
     # Ornstein-Uhlenbeck Process to add noise to the action output
     # just copied and pasted from the source code
-    # Exploration
+    # to encourage action exploration
 
     def __init__(self, action_space, mu=0.0, theta=0.15, max_sigma=0.3, min_sigma=0.3, decay_period=100000):
         self.mu = mu
@@ -127,6 +128,7 @@ class Memory:
             reward_batch.append(reward)
             next_state_batch.append(next_state)
             done_batch.append(done)
+
         return state_batch, action_batch, reward_batch, next_state_batch, done_batch
 
     def __len__(self):
