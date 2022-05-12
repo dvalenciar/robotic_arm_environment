@@ -37,7 +37,7 @@ class Critic(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
         super(Critic, self).__init__()
 
-        self.input_size = input_size
+        self.input_size  = input_size
         self.hidden_size = hidden_size
         self.output_size = output_size
 
@@ -66,7 +66,6 @@ class Actor(nn.Module):
         x = F.relu(self.h_linear_1(state))
         x = F.relu(self.h_linear_2(x))
         x = torch.tanh(self.h_linear_3(x))
-        # x = F.tanh(self.h_linear_3(x))
         return x
 
 
@@ -137,17 +136,18 @@ class Memory:
 
 class DDPGagent:
 
-    def __init__(self, env, hidden_size=256, actor_learning_rate=1e-4,
-                 critic_learning_rate=1e-3, gamma=0.99, tau=1e-2, max_memory_size=50000):
+    def __init__(self, env, hidden_size=256, actor_learning_rate=1e-4, critic_learning_rate=1e-3,
+                       gamma=0.99, tau=1e-2, max_memory_size=50000):
 
         self.num_states = env.observation_space.shape[0]  # 3
-        self.num_actions = env.action_space.shape[0]  # 1
+        self.num_actions = env.action_space.shape[0]      # 1
 
         self.gamma = gamma
         self.tau = tau
+        self.t_step = 0  # counter for activating learning every few steps
 
         # Initialization of the networks
-        self.actor = Actor(self.num_states, hidden_size, self.num_actions)  # main network Actor
+        self.actor  = Actor(self.num_states, hidden_size, self.num_actions)  # main network Actor
         self.critic = Critic(self.num_states + self.num_actions, hidden_size, self.num_actions)  # main network Critic
 
         self.actor_target = Actor(self.num_states, hidden_size, self.num_actions)
@@ -163,11 +163,10 @@ class DDPGagent:
         # Initialization memory
         self.memory = Memory(max_memory_size)
 
-        self.actor_optimizer = optim.Adam(self.actor.parameters(), lr=actor_learning_rate)
+        self.actor_optimizer  = optim.Adam(self.actor.parameters(), lr=actor_learning_rate)
         self.critic_optimizer = optim.Adam(self.critic.parameters(), lr=critic_learning_rate)
 
     def get_action(self, state):
-
         state_chan = torch.from_numpy(state).float().unsqueeze(0)  # a tensor with shape [1,3]
         state_ready = Variable(state_chan)  # need Variable to perform backpropagation
 
@@ -176,9 +175,23 @@ class DDPGagent:
         action = action.numpy()
         return action[0]
 
-    def update(self, batch_size):
+    def step_training(self, batch_size):
+        LEARN_EVERY_STEP = 100
+        self.t_step = self.t_step + 1
+
+        if self.t_step % LEARN_EVERY_STEP == 0:
+            if self.memory.__len__() > batch_size:
+                self.learn_step(batch_size)
+
+
+    def learn_step(self, batch_size):
 
         states, actions, rewards, next_states, _ = self.memory.sample(batch_size)
+
+        states  = np.array(states)
+        actions = np.array(actions)
+        rewards = np.array(rewards)
+        next_states = np.array(next_states)
 
         states  = torch.FloatTensor(states)
         actions = torch.FloatTensor(actions)
@@ -197,7 +210,7 @@ class DDPGagent:
         critic_loss = loss(Q_vals, Q_target)
 
         # Calculate the Actor loss
-        actor_loss = -self.critic.forward(states, self.actor.forward(states)).mean()
+        actor_loss = - self.critic.forward(states, self.actor.forward(states)).mean()
 
         # ----- update networks ----- #
         # Actor
@@ -222,8 +235,8 @@ class DDPGagent:
 
 def main():
 
-    EPISODE = 500
-    batch_size = 128
+    EPISODE = 50000
+    batch_size = 64
     # -------------------------------
     env = gym.make('Pendulum-v1')
     agent = DDPGagent(env)
@@ -232,7 +245,6 @@ def main():
     # -------------------------------
     rewards = []
     avg_rewards = []
-
     # -------------------------------
     for episode in range(1, EPISODE):
         done = False
@@ -244,12 +256,10 @@ def main():
             env.render()
             action = agent.get_action(state)
             action = noise.get_action(action, step)  # exploration is done via adding noise to the action itself
-
             new_state, reward, done, _ = env.step(action)
-            agent.memory.push(state, action, reward, new_state, done)
 
-            if len(agent.memory) > batch_size:
-                agent.update(batch_size)
+            agent.memory.push(state, action, reward, new_state, done)
+            agent.step_training(batch_size)
 
             state = new_state
             episode_reward += reward
