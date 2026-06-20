@@ -39,13 +39,12 @@ import time
 import rclpy
 import random
 import numpy as np
-import message_filters
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
-from gazebo_msgs.msg import ModelStates
-from gazebo_msgs.srv import SetEntityState
+from geometry_msgs.msg import Pose
+from ros_gz_interfaces.srv import SetEntityPose
 
-import tf2_ros 
+import tf2_ros
 from tf2_ros import TransformException
 
 from rclpy.action        import ActionClient
@@ -71,10 +70,12 @@ class MyRLEnvironmentNode(Node):
 
 
 		# --------------------------Client for reset the sphere position --------------------------#
-		self.client_reset_sphere = self.create_client(SetEntityState,'/gazebo/set_entity_state')
+		# Gazebo Harmonic: '/world/<world>/set_pose' bridged as ros_gz_interfaces/srv/SetEntityPose
+		# (replaces the Classic '/gazebo/set_entity_state').
+		self.client_reset_sphere = self.create_client(SetEntityPose,'/world/default/set_pose')
 		while not self.client_reset_sphere.wait_for_service(timeout_sec=1.0):
 			self.get_logger().info('sphere reset-service not available, waiting...')
-		self.request_sphere_reset = SetEntityState.Request()
+		self.request_sphere_reset = SetEntityPose.Request()
 
 
 		# ------------------------- Action-client to change joints position -----------------------#
@@ -82,48 +83,58 @@ class MyRLEnvironmentNode(Node):
 
 
 		# --------------------------Subcribers topics --------------------------------------------#
+		# Two independent subscriptions (no time-sync). The joint states are sim-time
+		# stamped while the sphere pose is headerless, so a message_filters
+		# ApproximateTimeSynchronizer would never align them. We just keep the
+		# latest value of each.
 
 		# Subcribe topic with the joints states
-		self.joint_state_subscription = message_filters.Subscriber(self, JointState, '/joint_states')
-		
-		# Subcribe topic with the sphere position
-		self.target_point_subscription = message_filters.Subscriber(self, ModelStates, '/gazebo/model_states')
+		self.joint_state_subscription = self.create_subscription(
+			JointState, '/joint_states', self.joint_state_callback, 10)
 
-		# Create the message filter (if a msg is detected for each subcriber, do the callback)
-		#self.ts = message_filters.TimeSynchronizer([self.joint_state_subscription, self.target_point_subscription], queue_size=30)
-		self.ts = message_filters.ApproximateTimeSynchronizer([self.joint_state_subscription, self.target_point_subscription], queue_size=10, slop=0.1, allow_headerless=True)
-		self.ts.registerCallback(self.initial_callback)
+		# Subcribe topic with the sphere position (gz PosePublisher, bridged to ROS)
+		self.target_point_subscription = self.create_subscription(
+			Pose, '/model/my_sphere/pose', self.target_pose_callback, 10)
 
 
 
-	def initial_callback(self, joint_state_msg, target_point_msg):
+	def joint_state_callback(self, joint_state_msg):
 
-		# Seems that the order that the joint values arrive is: ['joint2', 'joint3', 'joint1', 'joint4', 'joint5', 'joint6']
-		
+		# Map joint values by name (the broadcaster order is not guaranteed to
+		# match the desired joint1..joint6 order).
+		names = joint_state_msg.name
+		pos = dict(zip(names, joint_state_msg.position))
+		vel = dict(zip(names, joint_state_msg.velocity))
+
 		# Position of each joint:
-		self.joint_1_pos = joint_state_msg.position[2]
-		self.joint_2_pos = joint_state_msg.position[0]
-		self.joint_3_pos = joint_state_msg.position[1]
-		self.joint_4_pos = joint_state_msg.position[3]
-		self.joint_5_pos = joint_state_msg.position[4]
-		self.joint_6_pos = joint_state_msg.position[5]
+		self.joint_1_pos = pos['joint1']
+		self.joint_2_pos = pos['joint2']
+		self.joint_3_pos = pos['joint3']
+		self.joint_4_pos = pos['joint4']
+		self.joint_5_pos = pos['joint5']
+		self.joint_6_pos = pos['joint6']
 
 		# Velocity of each joint:
-		self.joint_1_vel =  joint_state_msg.velocity[2]
-		self.joint_2_vel =  joint_state_msg.velocity[0]
-		self.joint_3_vel =  joint_state_msg.velocity[1]
-		self.joint_4_vel =  joint_state_msg.velocity[3]
-		self.joint_5_vel =  joint_state_msg.velocity[4]
-		self.joint_6_vel =  joint_state_msg.velocity[5]
+		self.joint_1_vel = vel['joint1']
+		self.joint_2_vel = vel['joint2']
+		self.joint_3_vel = vel['joint3']
+		self.joint_4_vel = vel['joint4']
+		self.joint_5_vel = vel['joint5']
+		self.joint_6_vel = vel['joint6']
+
+		# Determine the pose of the end-effector w.r.t. world frame
+		end_effector = self.get_end_effector_transformation()
+		if end_effector is not None:
+			self.robot_x, self.robot_y, self.robot_z = end_effector
+
+
+	def target_pose_callback(self, target_point_msg):
 
 		# Determine the sphere position in Gazebo wrt world frame
-		sphere_index = target_point_msg.name.index('my_sphere') # Get the corret index for the sphere
-		self.pos_sphere_x = target_point_msg.pose[sphere_index].position.x 
-		self.pos_sphere_y = target_point_msg.pose[sphere_index].position.y 
-		self.pos_sphere_z = target_point_msg.pose[sphere_index].position.z 
-
-		# Determine the pose(position and location) of the end-effector w.r.t. world frame
-		self.robot_x, self.robot_y, self.robot_z = self.get_end_effector_transformation()
+		# target_point_msg is a geometry_msgs/Pose (the sphere's own pose topic)
+		self.pos_sphere_x = target_point_msg.position.x
+		self.pos_sphere_y = target_point_msg.position.y
+		self.pos_sphere_z = target_point_msg.position.z
 
 
 
@@ -171,12 +182,13 @@ class MyRLEnvironmentNode(Node):
 		sphere_position_y = random.uniform( -0.5, 0.5)
 		sphere_position_z = random.uniform( 0.05, 1.05)
 
-		self.request_sphere_reset.state.name = 'my_sphere'
-		self.request_sphere_reset.state.reference_frame = 'world'
-		self.request_sphere_reset.state.pose.position.x = sphere_position_x
-		self.request_sphere_reset.state.pose.position.y = sphere_position_y
-		self.request_sphere_reset.state.pose.position.z = sphere_position_z
-		
+		self.request_sphere_reset.entity.name = 'my_sphere'
+		self.request_sphere_reset.entity.type = self.request_sphere_reset.entity.MODEL
+		self.request_sphere_reset.pose.position.x = sphere_position_x
+		self.request_sphere_reset.pose.position.y = sphere_position_y
+		self.request_sphere_reset.pose.position.z = sphere_position_z
+		self.request_sphere_reset.pose.orientation.w = 1.0
+
 		self.future_sphere_reset = self.client_reset_sphere.call_async(self.request_sphere_reset)
 
 		self.get_logger().info('Reseting sphere to new position...')

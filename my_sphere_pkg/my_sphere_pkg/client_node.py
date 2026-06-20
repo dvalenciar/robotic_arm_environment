@@ -1,95 +1,95 @@
 '''
 Author: David Valencia
-Date: 12 / 08 /2021
-Describer: 
-		   Client Node 
-		   
-		   This script is a client node. I use this to change the sphere's position in Gazebo.
-		   The server is '/gazebo/set_entity_state', and it runs automatically when gazebo stars
-		   because I include the gazebo_ros_state plugin in my world file.
+Date: 12 / 08 / 2021  (migrated to ROS 2 Jazzy + Gazebo Harmonic, 2026-06)
+Describer:
+           Client Node
 
-		   This client sends a request to the service to change the position on the sphere. 
-		   
-		   Basically, it sends the position in X, Y, Z where I want to put the sphere. For now,  
-		   every time that the node is running sent a random position and wait for the confirmation. 
-		
-		   Executable name in the setup file: my_client_node
+           This script is a client node used to change the sphere's position in
+           Gazebo (gz-sim / Harmonic).
 
+           Migration note:
+             - Gazebo Classic used the service '/gazebo/set_entity_state'
+               (gazebo_msgs/SetEntityState), provided by the gazebo_ros_state plugin.
+             - Gazebo Harmonic exposes '/world/<world>/set_pose' instead. We reach
+               it through the ros_gz_bridge as the ROS service
+               '/world/default/set_pose' of type ros_gz_interfaces/srv/SetEntityPose.
+               (See config/sphere_bridge.yaml.)
+
+           This client sends a request to teleport the sphere to a random X, Y, Z.
+
+           Executable name in the setup file: my_client_node
 '''
 
-import sys
+import random
+
 import rclpy
 from rclpy.node import Node
-from gazebo_msgs.srv import SetEntityState
 
-import random
+from ros_gz_interfaces.srv import SetEntityPose
 
 
 class MyNodeClient(Node):
 
-	def __init__(self):
+    def __init__(self):
 
-		super().__init__('my_client_sphere_node_position')
+        super().__init__('my_client_sphere_node_position')
 
+        self.client_ = self.create_client(SetEntityPose, '/world/default/set_pose')
 
-		self.client_ = self.create_client(SetEntityState, '/gazebo/set_entity_state')
+        # Check if the service is available
+        while not self.client_.wait_for_service(timeout_sec=1.0):
+            self.get_logger().info('service not available, waiting again...')
 
-		# Check if the a service is available
-		
-		while not self.client_.wait_for_service(timeout_sec=1.0):
-			self.get_logger().info('service not available, waiting again...')
+        self.req = SetEntityPose.Request()
 
-		self.req = SetEntityState.Request()
+    def send_request(self):
 
+        # Target the sphere model by name
+        self.req.entity.name = 'my_sphere'
+        self.req.entity.type = self.req.entity.MODEL
 
+        # Random goal position
+        self.req.pose.position.x = random.uniform(-2.0, 2.0)
+        self.req.pose.position.y = random.uniform(-2.0, 2.0)
+        self.req.pose.position.z = random.uniform(0.1, 2.0)
+        self.req.pose.orientation.w = 1.0
 
-	def send_request(self):
-		
-		self.req.state.name = 'my_sphere'
-		self.req.state.reference_frame = 'world'
-		self.req.state.pose.position.x = random.uniform(-2.0, 2.0)
-		self.req.state.pose.position.y = random.uniform(-2.0, 2.0)
-		self.req.state.pose.position.z = random.uniform(0.1, 2.0)
-		
-		# Future is a value that indicates whether the call and response is finished, after sending a request to a service
-
-		self.future = self.client_.call_async(self.req)
+        # Future indicates whether the call and response is finished
+        self.future = self.client_.call_async(self.req)
 
 
 def main(args=None):
 
-	rclpy.init(args=args) 
+    rclpy.init(args=args)
 
-	node_client = MyNodeClient()
-	node_client.send_request()
+    node_client = MyNodeClient()
+    node_client.send_request()
 
+    # See if the service has replied
+    while rclpy.ok():
 
-	# See if the service has replied
-	
-	while rclpy.ok():
-		
-		rclpy.spin_once(node_client)
+        rclpy.spin_once(node_client)
 
-		if node_client.future.done():
+        if node_client.future.done():
 
-			# Get response from service 
-			try:
-				response = node_client.future.result()
-				
-			except Exception as e:
-				node_client.get_logger().info('Service call failed %r' % (e,))
+            try:
+                response = node_client.future.result()
 
-			else:
-				node_client.get_logger().info('Coordinates sent status:%s, Points: X:%f Y:%f Z:%f' % 
-										     (response.success, 
-										      node_client.req.state.pose.position.x, 
-										      node_client.req.state.pose.position.y, 
-										      node_client.req.state.pose.position.z))		
-			break
+            except Exception as e:
+                node_client.get_logger().info('Service call failed %r' % (e,))
 
-	
-	node_client.destroy_node()
-	rclpy.shutdown()
+            else:
+                node_client.get_logger().info(
+                    'Coordinates sent status:%s, Points: X:%f Y:%f Z:%f' %
+                    (response.success,
+                     node_client.req.pose.position.x,
+                     node_client.req.pose.position.y,
+                     node_client.req.pose.position.z))
+            break
+
+    node_client.destroy_node()
+    rclpy.shutdown()
+
 
 if __name__ == '__main__':
-	main()
+    main()

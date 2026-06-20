@@ -25,12 +25,12 @@
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_0_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_0_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 			<collision>
         		<geometry>
-          			<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_0_0.dae" scale="0.001 0.001 0.001" />
+          			<mesh filename="file://$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_0_0.dae" scale="0.001 0.001 0.001" />
         		</geometry>
       		</collision>
 		</link>
@@ -64,7 +64,7 @@
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_1_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_1_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 		</link>
@@ -99,19 +99,19 @@
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_2_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_2_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_2_1.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_2_1.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_2_2.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_2_2.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 		</link>
@@ -140,13 +140,13 @@
       		<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_3_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_3_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 			<collision>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_3_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_3_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</collision>
 		</link>
@@ -180,13 +180,13 @@
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_4_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_4_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_4_1.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_4_1.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 		</link>
@@ -221,7 +221,7 @@
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_5_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_5_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 		</link>
@@ -250,12 +250,12 @@
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_6_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_6_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 			<collision>
         		<geometry>
-          			<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_6_0.dae" scale="0.001 0.001 0.001" />
+          			<mesh filename="file://$(find my_doosan_pkg)/description/meshes/m1013_white/MF1013_6_0.dae" scale="0.001 0.001 0.001" />
         		</geometry>
       		</collision>
 		</link>

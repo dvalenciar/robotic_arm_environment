@@ -27,12 +27,12 @@
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_0_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_0_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 			<collision>
         		<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_0_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_0_0.dae" scale="0.001 0.001 0.001" />
         		</geometry>
       		</collision>
 		</link>
@@ -66,19 +66,19 @@
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_1_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_1_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
             <visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_1_1.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_1_1.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
             <visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_1_2.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_1_2.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 		</link>
@@ -112,19 +112,19 @@
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_2_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_2_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_2_1.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_2_1.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_2_2.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_2_2.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 		</link>
@@ -153,13 +153,13 @@
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_3_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_3_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
             <visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_3_1.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_3_1.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 		</link>
@@ -193,13 +193,13 @@
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_4_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_4_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
             <visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_4_1.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_4_1.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 		</link>
@@ -234,13 +234,13 @@
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_5_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_5_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
             <visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_5_1.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_5_1.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 		</link>
@@ -269,12 +269,12 @@
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
 				<geometry>
-					<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_6_0.dae" scale="0.001 0.001 0.001" />
+					<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_6_0.dae" scale="0.001 0.001 0.001" />
 				</geometry>
 			</visual>
 			<collision>
         		<geometry>
-          			<mesh filename="file:///$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_6_0.dae" scale="0.001 0.001 0.001" />
+          			<mesh filename="file://$(find my_doosan_pkg)/description/meshes/a0912_blue/A0912_6_0.dae" scale="0.001 0.001 0.001" />
         		</geometry>
       		</collision>
 		</link>
@@ -282,10 +282,11 @@
 
 		<!-- the following lines instantiates all the info described in the files:
 		 macro.gazebo_config_control.xacro, transmissions,  internal_config, macro.bumper_config  by david-->
-		<xacro:config_ctr_gazebo /> 
+		<xacro:config_ctr_gazebo />
 		<xacro:dsr_transmission />
 		<xacro:dsr_config_coeff />
-		<xacro:bumper_ctr_sensor />
+		<!-- Phase 1: bumper (Classic gz contact plugin) disabled; migrated to gz contact sensor in Phase 3 -->
+		<!-- <xacro:bumper_ctr_sensor /> -->
 
 	</xacro:macro>
 </robot>
