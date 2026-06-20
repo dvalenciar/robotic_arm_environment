@@ -4,6 +4,15 @@ Robotic Arm Simulation in ROS 2 and Gazebo
   <br>
 </h1>
 
+> ## 🚀 Migrated to ROS 2 Jazzy + Gazebo Harmonic — June 2026
+>
+> This repository has been **fully migrated from ROS 2 Foxy + Gazebo Classic
+> (both end-of-life) to ROS 2 Jazzy + Gazebo Harmonic on Ubuntu 24.04.**
+>
+> The arm, the target sphere, and the full RL environment all run on the new
+> stack. Everything below targets Jazzy + Harmonic. If you need the old
+> Foxy / Gazebo Classic version, check the git history before this update.
+
 ## General Overview
 
 This repository shows, **from scratch**, how to:
@@ -13,11 +22,8 @@ This repository shows, **from scratch**, how to:
 3. Run a **reacher task**: the arm reaches a visual target (green sphere) that resets to a new random position each episode.
 
 <p align="center">
-  <img src="https://github.com/dvalenciar/robotic_arm_environment/blob/main/images/doosan.gif">
+  <img src="https://github.com/dvalenciar/robotic_arm_environment/blob/main/images/doosan.gif" alt="Doosan arm reacher demo">
 </p>
-
-> **Modernized for ROS 2 Jazzy + Gazebo Harmonic** (Ubuntu 24.04). The original
-> version targeted ROS 2 Foxy + Gazebo Classic, both now end-of-life.
 
 ## Prerequisites
 
