@@ -5,9 +5,9 @@
 		<!-- I need this for ROS2 control -->
 		<!-- I create this file, it was NOT available in the original Doosan repo -->
 
-		<ros2_control name="GazeboSystem" type="system">
+		<ros2_control name="GazeboSimSystem" type="system">
 			<hardware>
-				<plugin>gazebo_ros2_control/GazeboSystem</plugin>
+				<plugin>gz_ros2_control/GazeboSimSystem</plugin>
 	    	</hardware>
 
 	    	<joint name="joint1">
@@ -74,9 +74,7 @@
 	  	</ros2_control>
 
 		<gazebo>
-			<plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
-        		<!--<robot_sim_type>gazebo_ros2_control/DefaultRobotHWSim</robot_sim_type> -->
-				<robot_sim_type>gazebo_ros2_control/GazeboSystem</robot_sim_type>
+			<plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
 				<parameters>$(find my_doosan_pkg)/config/simple_controller.yaml</parameters>
 		    </plugin>
 		</gazebo>

@@ -1,0 +1,23 @@
+# ros_gz_bridge configuration for the goal sphere (ROS 2 Jazzy + Gazebo Harmonic)
+#
+# Replaces the Gazebo Classic mechanisms:
+#   - /gazebo/set_entity_state  (service) -> gz /world/<world>/set_pose
+#   - /gazebo/model_states      (topic)   -> gz /world/<world>/pose/info
+#
+# NOTE: the world name is hard-coded to "default" to match the world SDF
+# (<world name="default">). If the world is renamed, update the names below.
+
+# Service: set the pose of an entity (used to teleport the sphere on RL reset)
+- service_name: "/world/default/set_pose"
+  ros_type_name: "ros_gz_interfaces/srv/SetEntityPose"
+  gz_req_type_name: "gz.msgs.Pose"
+  gz_rep_type_name: "gz.msgs.Boolean"
+
+# Topic: the sphere model's own pose (from its PosePublisher plugin), used to
+# read the sphere position for the RViz marker. The topic is dedicated to the
+# sphere, so a plain Pose is enough (no entity-name matching needed).
+- ros_topic_name: "/model/my_sphere/pose"
+  gz_topic_name: "/model/my_sphere/pose"
+  ros_type_name: "geometry_msgs/msg/Pose"
+  gz_type_name: "gz.msgs.Pose"
+  direction: GZ_TO_ROS

@@ -1,69 +1,53 @@
-
 '''
 Author: David Valencia
-Date: 11 / 08 /2021
+Date: 11 / 08 / 2021  (migrated to ROS 2 Jazzy + Gazebo Harmonic, 2026-06)
 
-Describer:  This script lauchs (spawn) the sphere in gazebo using a sdf file. 
-            Just much easier using a SDF here.
-            the sdf could be found in /src/my_sphere_pkg/models/sdf/sphere_goal
+Describer:  This script spawns the sphere in Gazebo (gz-sim / Harmonic) from an
+            SDF file, starts the ros_gz_bridge for the sphere (pose read + set_pose
+            service), and runs the marker node that republishes the sphere position
+            for RViz.
 
-            The node_mark (coordinate_node.py)reads the position on the sphere and publishes on a topic /marker_position
+            Migration note:
+              - Spawning now uses ros_gz_sim/create instead of gazebo_ros/spawn_entity.py
+              - Reading/setting the pose goes through ros_gz_bridge (config/sphere_bridge.yaml)
 
-            --> I will invoke this launch file later in my environment launch file <--
-
-            Note: I remove rviz here in order to using an other rviz config later on my own environment 
-                  Also, gazebo and the empty world are launched in my own environment later 
-
+            Note: Gazebo and the empty world are NOT started here on purpose.
+                  This launch file is meant to be INCLUDED from the RL environment
+                  launch file, which starts gz-sim + the world itself.
 '''
 
 import os
-from launch_ros.actions import Node
-from launch import LaunchDescription
-from launch.actions import ExecuteProcess
-from launch.substitutions import LaunchConfiguration
 
 from ament_index_python.packages import get_package_share_directory
-
+from launch import LaunchDescription
+from launch_ros.actions import Node
 
 
 def generate_launch_description():
 
+    pkg_dir = get_package_share_directory('my_sphere_pkg')
 
-    pkg_dir = get_package_share_directory('my_sphere_pkg') 
+    sdf_file = os.path.join(pkg_dir, 'models', 'sdf', 'sphere_goal', 'model.sdf')
+    bridge_config = os.path.join(pkg_dir, 'config', 'sphere_bridge.yaml')
 
-    
-    # Gazebo   
-    #world_file_name = 'my_empty_world.world'
-    #world = os.path.join(pkg_dir, 'worlds', world_file_name)
-    #gazebo = ExecuteProcess(cmd=['gazebo', '--verbose', world,'-s', 'libgazebo_ros_factory.so'], output='screen')
+    # Spawn the sphere into the (already running) gz-sim world
+    spawn_entity = Node(
+        package='ros_gz_sim',
+        executable='create',
+        arguments=['-file', sdf_file, '-name', 'my_sphere',
+                   '-x', '0.5', '-y', '0.5', '-z', '1.0'],
+        output='screen',
+    )
 
+    # Bridge: set_pose service + pose/info topic (replaces Classic gazebo_ros plugins)
+    sphere_bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        parameters=[{'config_file': bridge_config}],
+        output='screen',
+    )
 
-    '''
-    # Rviz2
-    use_sim_time = LaunchConfiguration('use_sim_time', default='false') # TODO still need to check this 
-    rviz_conf_file_name = 'my_rviz_conf.rviz'
-    rviz_conf = os.path.join(pkg_dir, 'rviz', rviz_conf_file_name)
-    rviz2 = Node(package='rviz2', 
-                 executable='rviz2', 
-                 name='rviz2', 
-                 arguments=['-d', rviz_conf], 
-                 parameters=[{'use_sim_time': use_sim_time}], 
-                 output='screen')
-    '''
+    # node_mark -> coordinate_node.py -> reads the sphere pose and publishes the Marker topic
+    node_mark = Node(package='my_sphere_pkg', executable='reader_mark_node', output='screen')
 
-
-    # SDF
-    sdf_file_name = 'sdf/sphere_goal/model.sdf'
-    sdf = os.path.join(pkg_dir, 'models', sdf_file_name)
-    
-    spawn_entity = Node(package='gazebo_ros', 
-                        executable='spawn_entity.py', 
-                        arguments=['-entity', 'my_sphere', '-file', sdf, '-x','0.5', '-y','0.5', '-z','1'], 
-                        output='screen')
-
-    # Nodes
-    # node_mark --> coordinate_node.py --> reads the position of the sphere in Gazebo and publishes the Marker Topic 
-    
-    node_mark = Node(package ='my_sphere_pkg', executable ='reader_mark_node', output ='screen')
-    
-    return LaunchDescription([spawn_entity, node_mark])
+    return LaunchDescription([spawn_entity, sphere_bridge, node_mark])

@@ -12,6 +12,7 @@ Describer:
 		Executable name in the setup file:data_collection
 '''
 
+import os
 import sys
 import time
 import rclpy
@@ -26,14 +27,17 @@ next_state_vector = []
 reward_vector = []
 action_vectors = []
 
-store_path = '/home/david/ros2_ws/src/robotic_arm_environment/data/'
+# Output folder. Uses '~' so it is not tied to a specific username, and is
+# created automatically if it does not exist (so it works on any machine).
+store_path = os.path.expanduser('~/ros2_ws/src/robotic_arm_environment/data')
 
 
 def write_data_function(path, st, act, st_1, rew):
-    np.savetxt(path + "/current_state.txt", st, fmt='%4f')
-    np.savetxt(path + "/action_vector.txt", act, fmt='%4f')
-    np.savetxt(path + "/next_state.txt", st_1, fmt='%4f')
-    np.savetxt(path + "/rew_vector.txt", rew, fmt='%f')
+    os.makedirs(path, exist_ok=True)
+    np.savetxt(os.path.join(path, "current_state.txt"), st, fmt='%4f')
+    np.savetxt(os.path.join(path, "action_vector.txt"), act, fmt='%4f')
+    np.savetxt(os.path.join(path, "next_state.txt"), st_1, fmt='%4f')
+    np.savetxt(os.path.join(path, "rew_vector.txt"), rew, fmt='%f')
 
 
 def collector_function(data_collector):

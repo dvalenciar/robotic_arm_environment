@@ -1,65 +1,124 @@
 <h1 align="center">
   <br>
-Robotic Arm Simulation in ROS2 and Gazebo
+Robotic Arm Simulation in ROS 2 and Gazebo
   <br>
 </h1>
 
-
-## Note:
-I will take this project again very soon;  the idea is to use state-of-the-art RL algorithms. Also, move to the new gazebo and the latest ROS version. Please let me know if you want to collaborate.
+> ## 🚀 Migrated to ROS 2 Jazzy + Gazebo Harmonic — June 2026
+>
+> This repository has been **fully migrated from ROS 2 Foxy + Gazebo Classic
+> (both end-of-life) to ROS 2 Jazzy + Gazebo Harmonic on Ubuntu 24.04.**
+>
+> The arm, the target sphere, and the full RL environment all run on the new
+> stack. Everything below targets Jazzy + Harmonic. If you need the old
+> Foxy / Gazebo Classic version, check the git history before this update.
 
 ## General Overview
 
-This repository includes: First, how to simulate a 6DoF Robotic Arm **from scratch** using **GAZEBO** and **ROS2**. Second, it provides a custom **Reinforcement Learning Environment** where you can test the Robotic Arm with your RL algorithms. Finally, we test the simulation and environment with a reacher target task, using RL and the 6DoF Robotic Arm with a visual target point.
+This repository shows, **from scratch**, how to:
+
+1. Simulate a 6-DoF robotic arm (Doosan a0912 / m1013) in **Gazebo** and **ROS 2**.
+2. Use a custom **Reinforcement Learning environment** to test the arm with your own RL algorithms.
+3. Run a **reacher task**: the arm reaches a visual target (green sphere) that resets to a new random position each episode.
 
 <p align="center">
-  <img src="https://github.com/dvalenciar/robotic_arm_environment/blob/main/images/doosan.gif">
+  <img src="https://github.com/dvalenciar/robotic_arm_environment/blob/main/images/doosan.gif" alt="Doosan arm reacher demo">
 </p>
-
 
 ## Prerequisites
 
-|Library         | Version (TESTED) |
-|----------------------|----|
-| Ubuntu | 20.04|
-| ROS2| Foxy [link](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)|
-| ros2_control |[link](https://github.com/ros-controls/ros2_control/tree/foxy) |
-| gazebo_ros2_control | [link](https://github.com/ros-simulation/gazebo_ros2_control/tree/foxy)|
+You only need the platform installed first:
 
-## How to run this Repository 
+| Requirement | Version (tested) |
+|---|---|
+| Ubuntu | 24.04 |
+| ROS 2 | Jazzy — [install](https://docs.ros.org/en/jazzy/Installation.html) |
 
-In the following links you can find a step-by-step instruction section to run this repository and simulate the robotic arm:
+## Dependencies
 
-* **Simulation in Gazebo and ROS2** --> [Tutorial-link](https://davidvalenciaredro.wixsite.com/my-site/services-7)
-  - Configurate and spawn the robotic arm in Gazebo. 
-  - Move the robot with a simple position controller.
-   
-* **Custom RL Environment** --> [Tutorial-link](https://davidvalenciaredro.wixsite.com/my-site/services-7-1)
-  - A complete Reinforcement Learning environment simulation. 
+The `apt` command below installs everything else this repo needs — **Gazebo
+Harmonic** (pulled in by `ros-gz`), the `ros_gz` bridge/sim, `ros2_control`,
+`gz_ros2_control`, and the controllers. Safe to run on any ROS 2 Jazzy install;
+packages you already have are simply skipped.
 
-* **Reacher task with RL** --> Cooming soon
-  - Robot reacher task.
+```bash
+sudo apt install ros-jazzy-ros-gz ros-jazzy-gz-ros2-control \
+  ros-jazzy-ros2-control ros-jazzy-ros2-controllers \
+  ros-jazzy-joint-state-publisher-gui ros-jazzy-xacro \
+  ros-jazzy-robot-state-publisher ros-jazzy-rviz2 ros-jazzy-tf2-ros
+```
 
+## Installation
 
+Create a colcon workspace and clone this repository into its `src` folder:
+
+```bash
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
+git clone https://github.com/dvalenciar/robotic_arm_environment.git
+cd ~/ros2_ws
+```
+
+## Build
+
+```bash
+source /opt/ros/jazzy/setup.bash
+cd ~/ros2_ws
+colcon build
+source install/setup.bash
+```
+
+## Quick start
+
+```bash
+# Full RL environment: arm + target sphere in Gazebo
+ros2 launch my_environment_pkg my_environment.launch.py
+
+# In a second terminal — run a few random-action episodes
+ros2 run my_environment_pkg run_environment
+```
+
+Test pieces individually:
+
+```bash
+# Arm only (spawn + joint_trajectory_controller)
+ros2 launch my_doosan_pkg my_doosan_gazebo_controller.launch.py
+
+# Arm in RViz with joint sliders
+ros2 launch my_doosan_pkg my_doosan_rviz.launch.py
+
+# Target sphere only (standalone)
+ros2 launch my_sphere_pkg my_sphere_standalone.launch.py
+ros2 run my_sphere_pkg my_client_node   # teleport it to a random pose
+```
+
+## Packages
+
+| Package | Role |
+|---|---|
+| `my_doosan_pkg` | Robot description (xacro), `gz_ros2_control`, worlds, controllers |
+| `my_sphere_pkg` | Target sphere: spawn, pose readback, and reset via `ros_gz` |
+| `my_environment_pkg` | RL environment node tying the arm + sphere together |
 
 ## Citation
-If you use either the code, data or the step from the tutorial-blog in your paper or project, please kindly star this repo and cite our webpage
 
+If the code helps your work, please star this repo.
 
 ## Acknowledgement
-I want to thank Doosan Robotics for their repositories, and packages where they took part of this code.
+
+Thanks to Doosan Robotics for their repositories and packages:
 
 * https://github.com/doosan-robotics/doosan-robot2
 * https://github.com/doosan-robotics/doosan-robot
-* https://www.doosanrobotics.com/en/Index
+* https://www.doosanrobotics.com/en/
 
-Also, thanks to the authors of these repositories and their tutorials where I took some ideas  
+And to the authors of these repositories and tutorials for the ideas:
 
 * https://github.com/noshluk2/ROS2-Ultimate-learners-Repository/tree/main/bazu
 * https://github.com/TomasMerva/ROS_KUKA_env
 
-
 ## Contact
-Please feel free to contact me or open an issue if you have questions or need additional explanations.
 
-######  The released codes are only allowed for non-commercial use.
+Please open an issue if you have questions or need additional explanations.
+
+###### The released code is only allowed for non-commercial use.

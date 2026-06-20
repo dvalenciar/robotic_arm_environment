@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# IDE
+.idea/
+
+# colcon (in case the workspace is ever built inside the repo)
+build/
+install/
+log/
+
+# Generated training data (collection_data.py writes here)
+data/*.txt
